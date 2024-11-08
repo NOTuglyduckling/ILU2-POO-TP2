@@ -13,6 +13,14 @@ public class BoundaryAcheterProduit {
 	}
 
 	public void acheterProduit(String nomAcheteur) {
-		// TODO à completer
+		if (controlAcheter.trouverHabitant(nomAcheteur)!=null) {
+			System.out.println("Je suis désolée Bonemine mais il faut petre un habitant de notre village pour commercer ici.");
+		} else {
+			String produit = Clavier.entrerChaine("Quel produit voulez-vous acheter ?");
+		
+			int vendeur = Clavier.entrerEntier("Chez quel commerçant voulez-vous acheter des "+produit+" ?\n");
+		}
+		
+		
 	}
 }
