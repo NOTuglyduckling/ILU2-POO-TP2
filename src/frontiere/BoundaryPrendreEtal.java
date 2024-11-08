@@ -1,13 +1,10 @@
 package frontiere;
 
-import java.util.Scanner;
-
 import controleur.ControlPrendreEtal;
 import controleur.ControlVerifierIdentite;
 
 public class BoundaryPrendreEtal {
 	private ControlPrendreEtal controlPrendreEtal;
-	private Scanner scan = new Scanner(System.in);
 
 	public BoundaryPrendreEtal(ControlPrendreEtal controlChercherEtal) {
 		this.controlPrendreEtal = controlChercherEtal;
