@@ -23,13 +23,13 @@ class ControlAcheterProduitTest {
 	
 	@Test
 	void testControlAcheterProduit() {
-		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(), new ControlTrouverEtalVendeur(), village);
+		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(village), new ControlTrouverEtalVendeur(village), village);
 		assertNotNull(controlAcheterProduit,"Conestructeur ne renvoie pas null");
 	}
 
 	@Test
 	void testVerifierIdentite() {
-		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(), new ControlTrouverEtalVendeur(), village);
+		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(village), new ControlTrouverEtalVendeur(village), village);
 		Gaulois vermine = new Gaulois("Vermine",3);
 		village.ajouterHabitant(vermine);
 		assertTrue(controlAcheterProduit.verifierIdentite("Vermine"));
@@ -38,14 +38,23 @@ class ControlAcheterProduitTest {
 
 	@Test
 	void testTrouverVendeurs() {
-		ControlAfficherVillage controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(), new ControlTrouverEtalVendeur(), village);
-		
+		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(village), new ControlTrouverEtalVendeur(village), village);
+		Gaulois vermine = new Gaulois("Vermine",3);
+		village.ajouterHabitant(vermine);
+		assertNull(controlAcheterProduit.trouverVendeurs("produits"));
+		village.installerVendeur(vermine, "produits",1000);
+		Gaulois[] vendeurs = controlAcheterProduit.trouverVendeurs("produits");
+		assertEquals(vendeurs[0],vermine);
 	}
 
 	@Test
 	void testAcheterProduit() {
-		ControlAfficherVillage controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(), new ControlTrouverEtalVendeur(), village);
-		
+		ControlAcheterProduit controlAcheterProduit = new ControlAcheterProduit(new ControlVerifierIdentite(village), new ControlTrouverEtalVendeur(village), village);
+		Gaulois vermine = new Gaulois("Vermine",3);
+		village.ajouterHabitant(vermine);
+		village.installerVendeur(vermine, "produits",100);
+		assertEquals(controlAcheterProduit.acheterProduit(vermine, 10),10);
+		assertEquals(controlAcheterProduit.acheterProduit(vermine, 110),90);
 	}
 
 }
